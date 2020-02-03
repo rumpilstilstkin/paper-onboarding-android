@@ -5,7 +5,9 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 
 import com.ramotion.paperonboarding.listeners.AnimatorEndListener;
 import com.ramotion.paperonboarding.listeners.OnSwipeListener;
@@ -446,6 +451,7 @@ public class PaperOnboardingEngine implements PaperOnboardingEngineDefaults {
         ImageView elementShape = (ImageView) bottomBarElement.getChildAt(0);
         ImageView elementIcon = (ImageView) bottomBarElement.getChildAt(1);
         elementIcon.setImageResource(iconDrawableRes);
+        elementIcon.setColorFilter(Color.argb(255, 255, 255, 255));
         if (isActive) {
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) bottomBarElement.getLayoutParams();
             layoutParams.width = mPagerIconsContainer.getLayoutParams().height;
@@ -467,8 +473,10 @@ public class PaperOnboardingEngine implements PaperOnboardingEngineDefaults {
         LayoutInflater vi = LayoutInflater.from(mAppContext);
         ViewGroup contentTextView = (ViewGroup) vi.inflate(R.layout.onboarding_text_content_layout, mContentTextContainer, false);
         TextView contentTitle = (TextView) contentTextView.getChildAt(0);
+        TextViewCompat.setTextAppearance(contentTitle, PaperOnboardingPage.getTextStyleTitle());
         contentTitle.setText(PaperOnboardingPage.getTitleText());
         TextView contentText = (TextView) contentTextView.getChildAt(1);
+        TextViewCompat.setTextAppearance(contentText, PaperOnboardingPage.getTextStyleDescription());
         contentText.setText(PaperOnboardingPage.getDescriptionText());
         return contentTextView;
     }
@@ -479,8 +487,10 @@ public class PaperOnboardingEngine implements PaperOnboardingEngineDefaults {
      */
     protected ImageView createContentIconView(PaperOnboardingPage PaperOnboardingPage) {
         ImageView contentIcon = new ImageView(mAppContext);
+        contentIcon.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         contentIcon.setImageResource(PaperOnboardingPage.getContentIconRes());
-        FrameLayout.LayoutParams iconLP = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int width = (int) mAppContext.getResources().getDimension(R.dimen.image_width);
+        FrameLayout.LayoutParams iconLP = new FrameLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
         iconLP.gravity = Gravity.CENTER;
         contentIcon.setLayoutParams(iconLP);
         return contentIcon;

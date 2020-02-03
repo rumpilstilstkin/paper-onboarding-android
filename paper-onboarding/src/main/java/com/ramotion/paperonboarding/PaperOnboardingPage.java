@@ -12,16 +12,28 @@ public class PaperOnboardingPage implements Serializable {
     private int bgColor;
     private int contentIconRes;
     private int bottomBarIconRes;
+    private int textStyleTitle;
+    private int textStyleDescription;
 
     public PaperOnboardingPage() {
     }
 
-    public PaperOnboardingPage(String titleText, String descriptionText, int bgColor, int contentIconRes, int bottomBarIconRes) {
+    public PaperOnboardingPage(
+            String titleText,
+            String descriptionText,
+            int bgColor,
+            int contentIconRes,
+            int bottomBarIconRes,
+            int textStyleTitle,
+            int textStyleDescription
+    ) {
         this.bgColor = bgColor;
         this.contentIconRes = contentIconRes;
         this.bottomBarIconRes = bottomBarIconRes;
         this.descriptionText = descriptionText;
         this.titleText = titleText;
+        this.textStyleTitle = textStyleTitle;
+        this.textStyleDescription = textStyleDescription;
     }
 
     public String getTitleText() {
@@ -60,6 +72,14 @@ public class PaperOnboardingPage implements Serializable {
         return bgColor;
     }
 
+    public int getTextStyleTitle() {
+        return textStyleTitle;
+    }
+
+    public int getTextStyleDescription() {
+        return textStyleDescription;
+    }
+
     public void setBgColor(int bgColor) {
         this.bgColor = bgColor;
     }
@@ -74,6 +94,8 @@ public class PaperOnboardingPage implements Serializable {
         if (bgColor != that.bgColor) return false;
         if (contentIconRes != that.contentIconRes) return false;
         if (bottomBarIconRes != that.bottomBarIconRes) return false;
+        if (textStyleTitle != that.textStyleTitle) return false;
+        if (textStyleDescription != that.textStyleDescription) return false;
         if (titleText != null ? !titleText.equals(that.titleText) : that.titleText != null)
             return false;
         return descriptionText != null ? descriptionText.equals(that.descriptionText) : that.descriptionText == null;
@@ -87,6 +109,8 @@ public class PaperOnboardingPage implements Serializable {
         result = 31 * result + bgColor;
         result = 31 * result + contentIconRes;
         result = 31 * result + bottomBarIconRes;
+        result = 31 * result + textStyleTitle;
+        result = 31 * result + textStyleDescription;
         return result;
     }
 
@@ -98,6 +122,8 @@ public class PaperOnboardingPage implements Serializable {
                 ", bgColor=" + bgColor +
                 ", contentIconRes=" + contentIconRes +
                 ", bottomBarIconRes=" + bottomBarIconRes +
+                ", textStyleTitle=" + textStyleTitle +
+                ", textStyleDescription=" + textStyleDescription +
                 '}';
     }
 }
